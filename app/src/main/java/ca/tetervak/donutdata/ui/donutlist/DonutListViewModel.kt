@@ -2,6 +2,7 @@ package ca.tetervak.donutdata.ui.donutlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import ca.tetervak.donutdata.domain.Donut
 import ca.tetervak.donutdata.repositories.DonutRepository
@@ -20,7 +21,7 @@ class DonutListViewModel @Inject constructor(
 
     // Users of this ViewModel will observe changes to its donuts list to know when
     // to redisplay those changes
-    val donuts: LiveData<List<Donut>> = repository.getAll()
+    val donuts: LiveData<List<Donut>> = repository.getAll().asLiveData()
 
     fun deleteAll() =
         viewModelScope.launch(Dispatchers.IO) {

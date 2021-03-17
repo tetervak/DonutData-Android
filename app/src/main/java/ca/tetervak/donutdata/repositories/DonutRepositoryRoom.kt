@@ -1,17 +1,17 @@
 package ca.tetervak.donutdata.repositories
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import ca.tetervak.donutdata.database.DonutDao
 import ca.tetervak.donutdata.database.DonutEntity
 import ca.tetervak.donutdata.domain.Donut
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DonutRepositoryRoom @Inject constructor(private val donutDao: DonutDao)
     : DonutRepository {
 
-    override fun getAll(): LiveData<List<Donut>> {
-        return Transformations.map(donutDao.getAll()) { list -> list.map { it.asDonut() }}
+    override fun getAll(): Flow<List<Donut>> {
+        return donutDao.getAll().map{ list -> list.map { it.asDonut() }}
     }
 
     override suspend fun get(id: String): Donut {

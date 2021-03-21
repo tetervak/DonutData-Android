@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -59,6 +60,16 @@ dependencies {
 
     // live data builder dependency
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+    // Add the dependencies for the desired Firebase products
+    // https://firebase.google.com/docs/android/setup#available-libraries
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:20.0.3'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:22.1.1'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

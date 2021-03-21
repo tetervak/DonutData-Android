@@ -19,7 +19,12 @@ class DonutEntryViewModel @Inject constructor(
                     if (donutId == null) {
                         emit(Donut(null, "", "", 3.0F))
                     } else {
-                        emit(repository.get(donutId))
+                        val donut = repository.get(donutId)
+                        if(donut != null){
+                            emit(donut)
+                        }else{
+                            emit(Donut(null, "", "", 3F))
+                        }
                     }
                 }
 }

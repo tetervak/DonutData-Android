@@ -9,5 +9,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class DonutRepositoryModule {
     @Binds
-    abstract fun bindEnvelopeRepository(repository: DonutRepositoryRoom): DonutRepository
+    abstract fun bindEnvelopeRepository(repository: DonutRepositoryFirestore): DonutRepository
 }

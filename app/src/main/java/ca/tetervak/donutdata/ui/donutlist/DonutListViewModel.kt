@@ -23,8 +23,8 @@ class DonutListViewModel @Inject constructor(
     // to redisplay those changes
     val donuts: LiveData<List<Donut>> = repository.getAll().asLiveData()
 
-    fun deleteAll() =
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAll()
-        }
+//    fun deleteAll() =
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.deleteAll()
+//        }
 }

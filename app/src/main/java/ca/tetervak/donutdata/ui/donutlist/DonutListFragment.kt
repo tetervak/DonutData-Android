@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import ca.tetervak.donutdata.MainViewModel
 import ca.tetervak.donutdata.R
 import ca.tetervak.donutdata.databinding.DonutListFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -18,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DonutListFragment : Fragment() {
 
+    private lateinit var binding: DonutListFragmentBinding
     private val donutListViewModel: DonutListViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
 
@@ -32,7 +34,7 @@ class DonutListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = DonutListFragmentBinding.inflate(inflater, container, false)
+        binding = DonutListFragmentBinding.inflate(inflater, container, false)
 
         val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         binding.recyclerView.addItemDecoration(divider)
@@ -68,10 +70,18 @@ class DonutListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_clear -> {
-                    donutListViewModel.deleteAll()
+                    notImplemented()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun notImplemented() {
+        Snackbar.make(
+            binding.root,
+            getString(R.string.not_implemented),
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 }

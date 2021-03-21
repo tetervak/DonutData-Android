@@ -36,4 +36,7 @@
     <string name="option_retry">Retry</string>
     <string name="option_exit">Exit</string>
 
+    <!-- temporary -->
+    <string name="not_implemented">This feature is not implemented yet.</string>
+
 </resources>

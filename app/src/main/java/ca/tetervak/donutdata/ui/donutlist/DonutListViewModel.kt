@@ -1,9 +1,6 @@
 package ca.tetervak.donutdata.ui.donutlist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import ca.tetervak.donutdata.domain.Donut
 import ca.tetervak.donutdata.repositories.DonutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,12 +16,21 @@ class DonutListViewModel @Inject constructor(
     private val repository: DonutRepository
 ) : ViewModel() {
 
-    // Users of this ViewModel will observe changes to its donuts list to know when
-    // to redisplay those changes
-    val donuts: LiveData<List<Donut>> = repository.getAll().asLiveData()
+    private val userId = MutableLiveData<String?>()
+    fun loadData(id: String) {
+        userId.value = id
+    }
 
-//    fun deleteAll() =
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.deleteAll()
-//        }
+    fun clearData() {
+        userId.value = null
+    }
+
+    val donuts: LiveData<List<Donut>> =
+        userId.switchMap { id ->
+            if (id != null) {
+                repository.getAll().asLiveData()
+            } else {
+                MutableLiveData()
+            }
+        }
 }

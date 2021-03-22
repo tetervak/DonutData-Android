@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import ca.tetervak.donutdata.MainViewModel
 import ca.tetervak.donutdata.R
 import ca.tetervak.donutdata.databinding.DonutListFragmentBinding
+import ca.tetervak.donutdata.firebase.FirebaseSignInViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,9 +20,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DonutListFragment : Fragment() {
 
-    private lateinit var binding: DonutListFragmentBinding
+    private val firestoreViewModel: FirebaseSignInViewModel by activityViewModels()
     private val donutListViewModel: DonutListViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
+
+    private lateinit var binding: DonutListFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,13 @@ class DonutListFragment : Fragment() {
         )
         binding.recyclerView.adapter = adapter
 
+        firestoreViewModel.userId.observe(viewLifecycleOwner){ id ->
+            if( id != null ) {
+                donutListViewModel.loadData(id)
+            } else {
+                donutListViewModel.clearData()
+            }
+        }
         binding.viewModel = donutListViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 

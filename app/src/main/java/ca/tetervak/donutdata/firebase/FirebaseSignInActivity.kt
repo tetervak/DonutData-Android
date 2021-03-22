@@ -12,6 +12,7 @@ import ca.tetervak.donutdata.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -49,9 +50,12 @@ abstract class FirebaseSignInActivity : AppCompatActivity(),
     }
 
     private fun startSignIn() {
+
         // Sign in with FirebaseUI
-        val intent = AuthUI.getInstance().createSignInIntentBuilder()
-            .setAvailableProviders(listOf(AuthUI.IdpConfig.EmailBuilder().build()))
+        val providers = listOf(AuthUI.IdpConfig.EmailBuilder().build())
+        val intent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
             .setIsSmartLockEnabled(false)
             .build()
 

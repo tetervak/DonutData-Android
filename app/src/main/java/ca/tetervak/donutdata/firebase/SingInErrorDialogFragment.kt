@@ -16,6 +16,7 @@ class SingInErrorDialogFragment: DialogFragment() {
             val fragment = SingInErrorDialogFragment()
             val args = Bundle()
             args.putInt(MESSAGE_KEY, message)
+            fragment.arguments = args
             return fragment
         }
     }

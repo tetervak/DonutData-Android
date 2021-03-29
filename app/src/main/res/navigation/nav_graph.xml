@@ -11,18 +11,21 @@
         tools:layout="@layout/donut_list_fragment">
         <action
             android:id="@+id/action_list_to_entry"
-            app:destination="@id/donutEntryDialog" />
+            app:destination="@id/donutEntryFragment" />
     </fragment>
-    <dialog
-        android:id="@+id/donutEntryDialog"
-        android:name="ca.tetervak.donutdata.ui.donutentry.DonutEntryDialog"
+    <fragment
+        android:id="@+id/donutEntryFragment"
+        android:name="ca.tetervak.donutdata.ui.donutentry.DonutEntryFragment"
         android:label="@string/donut_entry_label"
-        tools:layout="@layout/donut_entry_dialog">
+        tools:layout="@layout/donut_entry_fragment">
         <argument
             android:name="donutId"
             app:argType="string"
             app:nullable="true" />
-    </dialog>
+        <action
+            android:id="@+id/action_entry_to_list"
+            app:destination="@id/donutListFragment" />
+    </fragment>
     <dialog
         android:id="@+id/aboutDialog"
         android:name="ca.tetervak.donutdata.about.AboutDialog"

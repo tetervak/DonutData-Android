@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ca.tetervak.donutdata.MainViewModel
-import ca.tetervak.donutdata.databinding.DonutEntryDialogBinding
+import ca.tetervak.donutdata.databinding.DonutEntryFragmentBinding
 import ca.tetervak.donutdata.domain.Donut
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -18,13 +19,13 @@ import dagger.hilt.android.AndroidEntryPoint
  * entry or updating an existing one.
  */
 @AndroidEntryPoint
-class DonutEntryDialog : BottomSheetDialogFragment() {
+class DonutEntryFragment : Fragment() {
 
     companion object {
         private const val TAG = "DonutEntryDialog"
     }
 
-    private val safeArgs: DonutEntryDialogArgs by navArgs()
+    private val safeArgs: DonutEntryFragmentArgs by navArgs()
     private val donutEntryViewModel: DonutEntryViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
 
@@ -34,7 +35,7 @@ class DonutEntryDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = DonutEntryDialogBinding.inflate(inflater, container, false)
+        val binding = DonutEntryFragmentBinding.inflate(inflater, container, false)
 
         binding.viewModel = donutEntryViewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -48,14 +49,20 @@ class DonutEntryDialog : BottomSheetDialogFragment() {
                     rating = binding.ratingBar.rating
                 )
             )
-            dismiss()
+            showList()
         }
 
         // User clicked the Cancel button; just exit the dialog without saving the data
         binding.cancelButton.setOnClickListener {
-            dismiss()
+            showList()
         }
 
         return binding.root
+    }
+
+    private fun showList() {
+        findNavController().navigate(
+            DonutEntryFragmentDirections.actionEntryToList()
+        )
     }
 }
